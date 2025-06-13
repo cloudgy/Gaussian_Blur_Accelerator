@@ -39,13 +39,14 @@ Modern computer vision applications often need real-time smoothing and denoising
 ## Features
 
 - **3×3 Gaussian kernel**:  
-$$
-\begin{bmatrix}
-1 & 2 & 1 \\
-2 & 4 & 2 \\
-1 & 2 & 1
-\end{bmatrix}
-$$
+
+<div style="display: flex; justify-content: center; align-items: center; height: 100%; background-color: #f6f8fa; padding: 10px; border-radius: 5px; text-align: center;">
+<pre style="margin: 0;">
+1 2 1
+2 4 2
+1 2 1
+</pre>
+</div>
 
 normalized by 16 (full-kernel) or by 4 on the first row (zero-pad case)  
 - **Streaming datapath**: single MAC tree with combinational accumulation and shared shifters for scaling  
