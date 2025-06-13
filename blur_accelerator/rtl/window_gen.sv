@@ -65,8 +65,10 @@ module window_gen #(
             linebuf2[col] <= linebuf1[col];
             linebuf1[col] <= pixel_in;
 
-            // Advance column pointer
+            // Advance column pointer (suppress width-expansion warning)
+            /* verilator lint_off WIDTHEXPAND */
             col <= (col == IMG_W-1) ? '0 : col + 1;
+            /* verilator lint_on WIDTHEXPAND */
         end
     end
 

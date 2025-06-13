@@ -15,7 +15,7 @@ TESTS = $(TEST_SUBDIRS:/=)
 LINTER := verilator
 SIMULATOR := verilator
 SIMULATOR_ARGS := --binary --timing --trace --trace-structs \
-	--assert --timescale 1ns --quiet  
+	--assert --timescale 1ns #--quiet  
 SIMULATOR_BINARY := ./obj_dir/V*
 SIMULATOR_SRCS := *.sv
 # Optional use of Icarus as Linter and Simulator
@@ -23,10 +23,10 @@ ifdef ICARUS
 SIMULATOR := iverilog
 SIMULATOR_ARGS := -g2012
 SIMULATOR_BINARY := a.out
-SIMULATOR_SRCS := $(foreach src, $(RTL_SRCS), $(realpath $(src))) *.sv
-SIM_TOP := `$(shell pwd)/scripts/top.sh -s`
-# LINT_INCLUDES := ""
+SIM_TOP := gaussian_blur.sv
+SIMULATOR_SRCS := $(foreach src, $(RTL_SRCS), $(realpath $(src))) $(realpath $(wildcard $(TEST_DIR)/$@/*.sv))
 endif
+
 # Gate Level Verification
 ifdef GL
 SIMULATOR := iverilog
@@ -109,7 +109,6 @@ $(TESTS):
 		&& !( cat results.log | grep -qi error ) \
 		then \
 			printf "$(GREEN)PASSED $@$(RESET)\n"; \
-			cat results.log; \
 		else \
 			printf "$(RED)FAILED $@$(RESET)\n"; \
 			cat results.log; \
@@ -134,7 +133,7 @@ openlane:
 FORCE: ;
 
 openroad:
-	scripts/openroad_launch.sh | openroad
+	openroad -gui
 
 .PHONY: clean
 clean:
