@@ -14,7 +14,7 @@ module gaussian_blur (
   localparam int IMG_W = 32;
   localparam int IMG_H = 24;
 
-  // 1) Window generator taps
+  // Window generator taps
   logic [7:0] w00, w01, w02;
   logic [7:0] w10, w11, w12;
   logic [7:0] w20, w21, w22;
@@ -34,7 +34,7 @@ module gaussian_blur (
   );
   /* verilator lint_on WIDTHEXPAND */
 
-  // 2) Convolution accumulator
+  // Convolution accumulator
   logic [15:0] mac_sum;
   always_comb begin
     mac_sum = {{8{1'b0}}, w00}       + ({{8{1'b0}}, w01} << 1) + {{8{1'b0}}, w02}
@@ -42,7 +42,7 @@ module gaussian_blur (
             + {{8{1'b0}}, w20}       + ({{8{1'b0}}, w21} << 1) + {{8{1'b0}}, w22};
   end
 
-  // 3) Pixel‐valid two‐stage pipeline
+  // two‐stage pipeline
   logic [1:0] vld_pipe;
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n)
@@ -51,7 +51,7 @@ module gaussian_blur (
       vld_pipe <= {vld_pipe[0], pixel_vld};
   end
 
-  // 3a) First‐row flag pipelined to align with output
+  // first‐row flag pipelined to align with output
   logic [1:0] row0_pipe;
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n)
@@ -60,7 +60,7 @@ module gaussian_blur (
       row0_pipe <= {row0_pipe[0], (row_cnt == 0)};
   end
 
-  // 4) Row/col counters to detect frame position
+  // counters to detect frame position
   logic [$clog2(IMG_W)-1:0] col_cnt;
   logic [$clog2(IMG_H)-1:0] row_cnt;
   always_ff @(posedge clk or negedge rst_n) begin
@@ -79,7 +79,7 @@ module gaussian_blur (
     end
   end
 
-  // 5) Output register + conditional normalization on first row
+  // Output register + conditional normalization on first row
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       pixel_out     <= '0;

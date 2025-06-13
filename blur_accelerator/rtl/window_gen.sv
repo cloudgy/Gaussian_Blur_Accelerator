@@ -17,25 +17,16 @@ module window_gen #(
     output logic [DATA_W-1:0]    w20, w21, w22   // bot row taps
 );
 
-    //------------------------------------------------------------------------------
-    // Line buffers: one row delays
-    //------------------------------------------------------------------------------
     logic [DATA_W-1:0] linebuf1 [0:IMG_W-1]; // holds previous row (the output pixel is on this row)
     logic [DATA_W-1:0] linebuf2 [0:IMG_W-1]; // holds row before last
 
     // Column pointer (tracks current column, 0 to IMG_W-1)
     logic [$clog2(IMG_W)-1:0] col;
 
-    //------------------------------------------------------------------------------
-    // Shift registers for each of the three rows
-    //------------------------------------------------------------------------------
     logic [DATA_W-1:0] shift2 [0:2]; // current row
     logic [DATA_W-1:0] shift1 [0:2]; // one row ago
     logic [DATA_W-1:0] shift0 [0:2]; // two rows ago
 
-    //------------------------------------------------------------------------------
-    // Sequential logic: update buffers and shift-regs
-    //------------------------------------------------------------------------------
     always_ff @(posedge clk or negedge rst_n) begin
         if (!rst_n) begin
             col <= '0;
@@ -71,10 +62,7 @@ module window_gen #(
             /* verilator lint_on WIDTHEXPAND */
         end
     end
-
-    //------------------------------------------------------------------------------
-    // Map shift registers into 3×3 window taps
-    //------------------------------------------------------------------------------
+    // Assign outputs from shift registers
     assign { w00, w01, w02 } = { shift0[2], shift0[1], shift0[0] };
     assign { w10, w11, w12 } = { shift1[2], shift1[1], shift1[0] };
     assign { w20, w21, w22 } = { shift2[2], shift2[1], shift2[0] };
