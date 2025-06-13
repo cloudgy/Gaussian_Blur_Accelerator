@@ -1,6 +1,11 @@
 `ifndef GAUSSIAN_BLUR_SV
 `define GAUSSIAN_BLUR_SV
 
+//------------------------------------------------------------------------------
+// Module: gaussian_blur
+// Description: Applies a Gaussian blur to a 3×3 pixel window.
+//------------------------------------------------------------------------------
+
 module gaussian_blur (
   input  logic        clk,
   input  logic        rst_n,
