@@ -152,7 +152,7 @@ make tests
 
 ## Future Work
 
-I would have liked to exploit the separability of the Gaussian kernel - we could have reduced the average number of multiplication operations per pixel from 9 to only 6, ultimately increasing out performance by 30%.
+We would have liked to exploit the separability of the Gaussian kernel - we could have reduced the average number of multiplication operations per pixel from 9 to only 6, ultimately increasing out performance by 30%.
 
 Our blurred image STILL does not match the "ground-truth" image perfectly. There is some banding in the first two rows that I suspect has to do with the zero-buffering that is implemented in the RTL. We "solve" this problem by just cropping the blurred image in a little bit, but this is a very crude solution. I'd like to spend more time and identify what actually went wrong.
 
