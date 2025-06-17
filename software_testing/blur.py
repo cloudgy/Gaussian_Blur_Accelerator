@@ -10,7 +10,7 @@ def gaussian_blur_with_padding(img: np.ndarray) -> np.ndarray:
     and dynamic normalization by the actual sum of weights.
     """
     H, W = img.shape
-    # 3x3 kernel
+    # 3x3 kernel, halan change this if we decide for 5x5
     kernel = np.array([[1, 2, 1],
                        [2, 4, 2],
                        [1, 2, 1]], dtype=np.uint16)

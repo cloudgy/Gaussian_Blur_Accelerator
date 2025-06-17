@@ -152,9 +152,11 @@ make tests
 
 ## Future Work
 
+I really wish that we were able to buffer images using a RAM macro like we had originally planned. I continuously encountered some error either with the macro initialization, or with the buffering process. I eventually gave up to focus on getting the core cuntionality working.
+
 I would have liked to exploit the separability of the Gaussian kernel - we could have reduced the average number of multiplication operations per pixel from 9 to only 6, ultimately increasing out performance by 30%.
 
-Our blurred image STILL does not match the "ground-truth" image perfectly. There is some banding in the first two rows that I suspect has to do with the zero-buffering that is implemented in the RTL. We "solve" this problem by just cropping the blurred image in a little bit, but this is a very crude solution. I'd like to spend more time and identify what actually went wrong.
+Our blurred image STILL does not match the "ground-truth" image perfectly. There is some banding in the first two rows that I suspect has to do with the zero-buffering that I implemented in the RTL. We "solve" this problem by just cropping the blurred image in a little bit, but this is a very crude solution. I'd like to spend more time and identify what actually went wrong.
 
 Lastly, it would be really cool to develop a new python toolchain to instead of finding the luminosity, split the image into three separate images based on the R, G, and B values. Once we have these three images, we can produce three separate blurred for each channel and combine them to produce blurred color images.
 
