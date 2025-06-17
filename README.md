@@ -96,9 +96,9 @@ Modern computer-vision systems often require real-time smoothing and denoising. 
 
 Wrap the core for off-chip interfacing:
 
-1. **SPI Slave** captures 8‑bit words on MOSI → asserts `pixel_vld`.
+1. SPI Slave captures 8‑bit words on MOSI → asserts `pixel_vld`.
 2. Core processes and outputs via `pixel_out` + `pixel_vld_out`.
-3. **SPI Master** reads back on MISO.
+3. SPI Master reads back on MISO.
 
 Recommend **Mode 0** (CPOL=0, CPHA=0), MSB first.
 
