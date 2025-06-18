@@ -152,7 +152,7 @@ make tests
 
 ## Future Work
 
-I really wish that we were able to buffer images using a RAM macro like we had originally planned. I continuously encountered some error either with the macro initialization, or with the buffering process. I eventually gave up to focus on getting the core cuntionality working.
+I really wish that we were able to buffer images using a RAM macro like we had originally planned. I continuously encountered some error either with the macro initialization, or with the buffering process. I eventually gave up to focus on getting the core funtionality working.
 
 I would have liked to exploit the separability of the Gaussian kernel - we could have reduced the average number of multiplication operations per pixel from 9 to only 6, ultimately increasing out performance by 30%.
 
